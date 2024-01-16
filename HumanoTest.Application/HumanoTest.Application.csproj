@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HumanoTest.Application.Contracts\HumanoTest.Application.Contracts.csproj" />
+    <ProjectReference Include="..\HumanoTest.Application.Models\HumanoTest.Application.Models.csproj" />
+    <ProjectReference Include="..\HumanoTest.Domain.Contracts\HumanoTest.Domain.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
