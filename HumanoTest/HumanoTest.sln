@@ -27,15 +27,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanoTest.Infrastructure.C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.CrossCutting", "04.CrossCutting", "{90DFD29C-82FA-4513-8A03-63DCD4C3BCB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanoTest.CrossCutting", "..\HumanoTest.CrossCutting\HumanoTest.CrossCutting.csproj", "{ED0324D9-534F-456E-9193-C8E10ED65DC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanoTest.CrossCutting", "..\HumanoTest.CrossCutting\HumanoTest.CrossCutting.csproj", "{ED0324D9-534F-456E-9193-C8E10ED65DC0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05.Common", "05.Common", "{EE0473C7-5A89-4EC7-935F-C3C2EC51A02C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Common.Paging", "..\HumanoTest.Common.Paging\Services.Common.Paging.csproj", "{7497CD66-B836-40FC-8D8D-FE31257BE669}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Common.Paging", "..\HumanoTest.Common.Paging\Services.Common.Paging.csproj", "{7497CD66-B836-40FC-8D8D-FE31257BE669}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Common.Collection", "..\HumanoTest.Collection\Services.Common.Collection.csproj", "{D4B2FBF2-9CDE-465C-A1B9-B2268EED4654}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Common.Collection", "..\HumanoTest.Collection\Services.Common.Collection.csproj", "{D4B2FBF2-9CDE-465C-A1B9-B2268EED4654}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Common.Mapping", "..\Services.Common.Mapping\Services.Common.Mapping.csproj", "{BF06EF33-9A0E-4988-8577-BA8F6E384398}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Common.Mapping", "..\Services.Common.Mapping\Services.Common.Mapping.csproj", "{BF06EF33-9A0E-4988-8577-BA8F6E384398}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06.Testing", "06.Testing", "{E198632A-969D-4D85-BE07-EA8057F88281}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanoTest.Api.Test", "..\HumanoTest.Api.Test\HumanoTest.Api.Test.csproj", "{1D4A6A34-E153-43A9-89FB-731157A69557}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +95,10 @@ Global
 		{BF06EF33-9A0E-4988-8577-BA8F6E384398}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF06EF33-9A0E-4988-8577-BA8F6E384398}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF06EF33-9A0E-4988-8577-BA8F6E384398}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D4A6A34-E153-43A9-89FB-731157A69557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D4A6A34-E153-43A9-89FB-731157A69557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D4A6A34-E153-43A9-89FB-731157A69557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D4A6A34-E153-43A9-89FB-731157A69557}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +115,7 @@ Global
 		{7497CD66-B836-40FC-8D8D-FE31257BE669} = {EE0473C7-5A89-4EC7-935F-C3C2EC51A02C}
 		{D4B2FBF2-9CDE-465C-A1B9-B2268EED4654} = {EE0473C7-5A89-4EC7-935F-C3C2EC51A02C}
 		{BF06EF33-9A0E-4988-8577-BA8F6E384398} = {EE0473C7-5A89-4EC7-935F-C3C2EC51A02C}
+		{1D4A6A34-E153-43A9-89FB-731157A69557} = {E198632A-969D-4D85-BE07-EA8057F88281}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F99D8F15-2C0D-4F09-B9E5-F60E534ED1DC}
