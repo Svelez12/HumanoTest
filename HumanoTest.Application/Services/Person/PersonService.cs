@@ -26,11 +26,11 @@ public class PersonService : IPersonService
 
         if (personCreateDto.Contacts != null)
         {
-            foreach( PersonContactCreateDto contact in personCreateDto.Contacts)
+            foreach (PersonContactCreateDto contact in personCreateDto.Contacts)
             {
                 personContacts.Add(new PersonContact(contact.PersonContactTypeId, contact.ContactName, contact.Data, person, contact.IsMainContact));
             }
-            
+
             var data = await personContactRepository.AddRangeAsync(personContacts);
 
             return data;

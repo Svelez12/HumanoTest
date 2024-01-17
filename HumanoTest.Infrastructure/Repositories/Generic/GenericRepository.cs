@@ -57,7 +57,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IEnti
         }
         catch (Exception ex)
         {
-            return new ResponseData(false, $"Error interno {ex}");
+            return new ResponseData(false, $"Error interno.");
         }
     }
 
@@ -73,7 +73,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IEnti
         }
         catch (Exception ex)
         {
-            return new ResponseData(false, $"Error interno {ex}");
+            return new ResponseData(false, $"Error interno.");
         }
     }
 }

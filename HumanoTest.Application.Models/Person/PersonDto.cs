@@ -13,20 +13,12 @@ public class PersonDto : BaseDto
     {
     }
 
-    public PersonDto(int id, int identityNumber, string name, int age, ICollection<PersonContactDto> contacts) : base(id)
+    public PersonDto(int id, int identityNumber, string name, int age, IEnumerable<PersonContactDto> contacts) : base(id)
     {
         IdentityNumber = identityNumber;
         Name = name;
         Age = age;
         Contacts = contacts;
-    }
-
-    public PersonDto(int id, int identityNumber, string name, int age, IEnumerable<PersonContactDto> iEContacts) : base(id)
-    {
-        IdentityNumber = identityNumber;
-        Name = name;
-        Age = age;
-        IEContacts = iEContacts;
     }
 
     public PersonDto(int identityNumber, string name, int age)
@@ -46,7 +38,5 @@ public class PersonDto : BaseDto
     [Required]
     public int Age { get; set; }
 
-    public ICollection<PersonContactDto> Contacts { get; set; }
-
-    public IEnumerable<PersonContactDto> IEContacts { get; set; }
+    public IEnumerable<PersonContactDto> Contacts { get; set; }
 }

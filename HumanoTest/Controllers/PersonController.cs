@@ -12,15 +12,13 @@ public class PersonController : ControllerBase
     private readonly IPersonService personService;
     private readonly ILogger<PersonController> _logger;
 
-    public PersonController(IPersonService PersonService, ILogger<PersonController> logger)
+    public PersonController(IPersonService PersonService)
     {
         personService = PersonService;
-        _logger = logger;
-
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllAsync(int page = 1, int take = 10, int identificatioNumberId= 0)
+    public async Task<IActionResult> GetAllAsync(int page = 1, int take = 10, int identificatioNumberId = 0)
     {
         ResponseData responseData = new();
 
@@ -32,7 +30,6 @@ public class PersonController : ControllerBase
         {
             responseData = await personService.GetAllAsync(page, take);
         }
-
 
         if (!responseData.Success)
         {
@@ -59,7 +56,4 @@ public class PersonController : ControllerBase
 
         return Ok(responseData);
     }
-
-
-
 }

@@ -6,10 +6,9 @@ public class PersonCreateDto
 {
     public PersonCreateDto()
     {
-            
     }
 
-    public PersonCreateDto(int identityNumber, string name, int age, IEnumerable<PersonContactCreateDto> contacts) 
+    public PersonCreateDto(int identityNumber, string name, int age, IEnumerable<PersonContactCreateDto> contacts)
     {
         IdentityNumber = identityNumber;
         Name = name;
