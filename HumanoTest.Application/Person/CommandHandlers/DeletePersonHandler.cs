@@ -19,15 +19,7 @@ public class DeletePersonHandler : IRequestHandler<DeletePerson, ResponseData>
 
     public async Task<ResponseData> Handle(DeletePerson request, CancellationToken cancellationToken)
     {
-        List<Person> people = new();
-
-        foreach (var id in request.Ids)
-        {
-            if (id > 0)
-            {
-                people.Add(new Person(id));
-            }
-        }
+        List<Person> people = request.Ids.Where(p => p > 0).Select(p => new Person(p)).ToList();
 
         await personUnitOfWork.PersonRepository.DeleteRangeAsync(people.ToArray());
 

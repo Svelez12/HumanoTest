@@ -52,7 +52,7 @@ public class PersonUnitOfWork : IPersonUnitOfWork
         {
             await humanoTestDbContext.SaveChangesAsync();
 
-            return new ResponseData(true, "Registro guardado satisfactoriamente.");
+            return new ResponseData(true, "Transacción realizada satisfactoriamente.");
         }
         catch (Exception ex)
         {
