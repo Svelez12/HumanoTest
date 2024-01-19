@@ -17,6 +17,7 @@
     <PackageReference Include="AspNetCore.HealthChecks.UI" Version="7.0.2" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.1.0" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="7.0.0" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.15">
@@ -31,7 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HumanoTest.Application.Models\HumanoTest.Application.Models.csproj" />
-    <ProjectReference Include="..\HumanoTest.CrossCutting\HumanoTest.CrossCutting.csproj" />
+    <ProjectReference Include="..\HumanoTest.Application\HumanoTest.Application.csproj" />
     <ProjectReference Include="..\HumanoTest.Infrastructure.Contracts\HumanoTest.Infrastructure.Contracts.csproj" />
     <ProjectReference Include="..\HumanoTest.Infrastructure\HumanoTest.Infrastructure.csproj" />
     <ProjectReference Include="..\Services.Common.Mapping\Services.Common.Mapping.csproj" />

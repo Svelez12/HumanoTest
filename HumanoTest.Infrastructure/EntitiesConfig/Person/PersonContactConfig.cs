@@ -1,6 +1,6 @@
 ﻿namespace HumanoTest.Infrastructure.EntitiesConfig.Person;
 
-using HumanoTest.Domain.Entities.Person;
+using HumanoTest.Domain.Entities.PersonEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

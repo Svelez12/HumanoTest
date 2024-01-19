@@ -1,8 +1,8 @@
 ﻿namespace HumanoTest.Infrastructure.EntitiesConfig.Person;
 
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using HumanoTest.Domain.Entities.Person;
 using Microsoft.EntityFrameworkCore;
+using HumanoTest.Domain.Entities.PersonEntities;
 
 public class PersonConfig
 {
@@ -12,6 +12,7 @@ public class PersonConfig
         entityBuilder.HasKey(eb => eb.Id);
         entityBuilder.Property(eb => eb.Id).IsRequired().ValueGeneratedOnAdd().HasColumnOrder(1).HasComment("Identificador Único de Entidad.");
         entityBuilder.Property(eb => eb.IdentityNumber).IsRequired().HasColumnOrder(2).HasComment("Número de Documento de Identidad.");
+        entityBuilder.HasIndex(eb => eb.IdentityNumber).IsUnique();
         entityBuilder.Property(eb => eb.Name).IsRequired().HasMaxLength(100).HasColumnOrder(3).HasComment("Nombre de Persona.");
         entityBuilder.Property(eb => eb.Age).HasColumnOrder(4).HasComment("Edad de Persona.");
 
@@ -23,7 +24,7 @@ public class PersonConfig
 
             people.Add(
                 new Person(id: i,
-                           identityNumber: ramdomIdentityNumber,
+                           identityNumber: ramdomIdentityNumber.ToString(),
                            name: $"Person {i}",
                            age: i));
         }

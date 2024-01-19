@@ -18,7 +18,7 @@ namespace HumanoTest.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false, comment: "Identificador Único de Entidad.")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdentityNumber = table.Column<int>(type: "int", nullable: false, comment: "Número de Documento de Identidad."),
+                    IdentityNumber = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Número de Documento de Identidad."),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Nombre de Persona."),
                     Age = table.Column<int>(type: "int", nullable: false, comment: "Edad de Persona.")
                 },
@@ -63,13 +63,13 @@ namespace HumanoTest.Infrastructure.Migrations
                         column: x => x.PersonContactTypeId,
                         principalTable: "PersonContactType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PersonContact_Person_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Person",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 },
                 comment: "Contactos Persona");
 
@@ -78,15 +78,15 @@ namespace HumanoTest.Infrastructure.Migrations
                 columns: new[] { "Id", "Age", "IdentityNumber", "Name" },
                 values: new object[,]
                 {
-                    { 1, 1, 693388399, "Person 1" },
-                    { 2, 2, 402193899, "Person 2" },
-                    { 3, 3, 109811160, "Person 3" },
-                    { 4, 4, 183043970, "Person 4" },
-                    { 5, 5, 691062587, "Person 5" },
-                    { 6, 6, 200356431, "Person 6" },
-                    { 7, 7, 9546950, "Person 7" },
-                    { 8, 8, 303091667, "Person 8" },
-                    { 9, 9, 823058360, "Person 9" }
+                    { 1, 1, "957709015", "Person 1" },
+                    { 2, 2, "685407361", "Person 2" },
+                    { 3, 3, "439924747", "Person 3" },
+                    { 4, 4, "558433187", "Person 4" },
+                    { 5, 5, "457098325", "Person 5" },
+                    { 6, 6, "522865059", "Person 6" },
+                    { 7, 7, "818066775", "Person 7" },
+                    { 8, 8, "363201467", "Person 8" },
+                    { 9, 9, "979061742", "Person 9" }
                 });
 
             migrationBuilder.InsertData(
@@ -120,6 +120,12 @@ namespace HumanoTest.Infrastructure.Migrations
                     { 8, "Person 8", "Informacion de Contacto 8", false, 8, 8 },
                     { 9, "Person 9", "Informacion de Contacto 9", false, 9, 9 }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Person_IdentityNumber",
+                table: "Person",
+                column: "IdentityNumber",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PersonContact_Id",

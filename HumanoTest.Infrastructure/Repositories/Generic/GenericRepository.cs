@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Services.Common.Paging;
 using HumanoTest.Domain.Contracts.IRepositories.Generic;
-using System.Resources;
+using HumanoTest.Application.Models.Common;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntityBase
 {
@@ -20,7 +20,13 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IEnti
         _context = humanoTestDbContext;
     }
 
-    public async Task<ResponseData> GetAllDataAsync<TResult>(int page, int take, Expression<Func<T, TResult>> select, Expression<Func<T, bool>> whereCondition = null, params Expression<Func<T, object>>[] includes)
+    public async Task<ResponseData> GetAllDataAsync<TResult>(
+        int page,
+        int take,
+        Expression<Func<T, TResult>> select,
+        Expression<Func<T, bool>> whereCondition = null,
+        List<WhereIfModel<T>> whereif = null,
+        params Expression<Func<T, object>>[] includes)
     {
         IQueryable<T> query = _context.Set<T>();
 
@@ -37,6 +43,17 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IEnti
             query = query.Where(whereCondition);
         }
 
+        if (whereif != null)
+        {
+            foreach (WhereIfModel<T> item in whereif)
+            {
+                if (item.Condition)
+                {
+                    query = query.Where(item.Predicate);
+                }
+            }
+        }
+
         if (select == null)
         {
             return new ResponseData(true, await query.ToListAsync());
@@ -50,8 +67,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IEnti
         try
         {
             await _context.Set<T>().AddAsync(entity);
-
-            await _context.SaveChangesAsync();
 
             return new ResponseData(true, "Registro Guardado de Satisfactoriamente.", entity.Id);
         }
@@ -75,5 +90,67 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IEnti
         {
             return new ResponseData(false, $"Error interno.");
         }
+    }
+
+    public async Task<ResponseData> UpdateAsync(T entity, params string[] propertiesToExcludeFromUpdate)
+    {
+        try
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+
+            if (propertiesToExcludeFromUpdate != null)
+            {
+                foreach (string propertiy in propertiesToExcludeFromUpdate)
+                {
+                    _context.Entry(entity).Property(propertiy).IsModified = false;
+                }
+            }
+
+            return new ResponseData(true, "Registro actualizado satisfactoriamente.");
+        }
+        catch (Exception ex)
+        {
+            return new ResponseData(false, $"Error al actualizar registro: {ex.Message}");
+        }
+    }
+
+    public async Task<ResponseData> DeleteAsync(T entity)
+    {
+        try
+        {
+            if (await ExistAsync(entity.Id))
+            {
+                _context.Set<T>().Remove(entity);
+
+                return new ResponseData(true, "Registro eliminado satisfactoriamente.");
+            }
+            else
+            {
+                return new ResponseData(false, "Registro no encontrado.");
+            }
+        }
+        catch (Exception ex)
+        {
+            return new ResponseData(false, $"Error al eliminar registro: {ex.Message}");
+        }
+    }
+
+    public async Task<ResponseData> DeleteRangeAsync(params T[] entities)
+    {
+        try
+        {
+            _context.Set<T>().RemoveRange(entities);
+
+            return new ResponseData(true, "Registros eliminados satisfactoriamente.");
+        }
+        catch (Exception ex)
+        {
+            return new ResponseData(false, $"Error al eliminar registros: {ex.Message}");
+        }
+    }
+
+    public async Task<bool> ExistAsync(int id)
+    {
+        return await _context.Set<T>().AnyAsync(e => e.Id == id);
     }
 }

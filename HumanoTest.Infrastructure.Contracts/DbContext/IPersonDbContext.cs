@@ -1,6 +1,6 @@
 ﻿namespace HumanoTest.Infrastructure.Contracts.DbContext;
 
-using HumanoTest.Domain.Entities.Person;
+using HumanoTest.Domain.Entities.PersonEntities;
 using Microsoft.EntityFrameworkCore;
 
 public interface IPersonDbContext

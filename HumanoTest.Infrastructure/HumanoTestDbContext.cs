@@ -1,6 +1,6 @@
 ﻿namespace HumanoTest.Infrastructure;
 
-using HumanoTest.Domain.Entities.Person;
+using HumanoTest.Domain.Entities.PersonEntities;
 using HumanoTest.Infrastructure.Contracts.DbContext;
 using HumanoTest.Infrastructure.EntitiesConfig.Person;
 using Microsoft.EntityFrameworkCore;
@@ -18,14 +18,14 @@ public class HumanoTestDbContext : DbContext, IHumanoTestDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Eliminate the Delete in Cascade
-        var cascadeFKs = modelBuilder.Model.GetEntityTypes()
-                        .SelectMany(t => t.GetForeignKeys())
-                        .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+        //var cascadeFKs = modelBuilder.Model.GetEntityTypes()
+        //                .SelectMany(t => t.GetForeignKeys())
+        //                .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Restrict);
 
-        foreach (var fk in cascadeFKs)
-        {
-            fk.DeleteBehavior = DeleteBehavior.Restrict;
-        }
+        //foreach (var fk in cascadeFKs)
+        //{
+        //    fk.DeleteBehavior = DeleteBehavior.Cascade;
+        //}
 
         //Database Schema.
         //modelBuilder.HasDefaultSchema("Person");

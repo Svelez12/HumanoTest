@@ -1,10 +1,10 @@
-﻿namespace HumanoTest.Domain.Entities.Person;
+﻿namespace HumanoTest.Domain.Entities.PersonEntities;
 
 public partial class PersonContact : EntityBase
 {
     public PersonContact()
     {
-            
+
     }
 
     public PersonContact(int id, int personContactTypeId, string contactName, string data, int personId, bool isMainContact) : base(id)
@@ -15,7 +15,7 @@ public partial class PersonContact : EntityBase
         PersonId = personId;
         IsMainContact = isMainContact;
     }
-    public PersonContact(int personContactTypeId, string contactName, string data, int personId, bool isMainContact) 
+    public PersonContact(int personContactTypeId, string contactName, string data, int personId, bool isMainContact)
     {
         PersonContactTypeId = personContactTypeId;
         ContactName = contactName;

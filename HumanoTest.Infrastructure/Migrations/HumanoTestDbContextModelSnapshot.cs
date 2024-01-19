@@ -21,7 +21,7 @@ namespace HumanoTest.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("HumanoTest.Domain.Entities.Person.Person", b =>
+            modelBuilder.Entity("HumanoTest.Domain.Entities.PersonEntities.Person", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,8 +36,9 @@ namespace HumanoTest.Infrastructure.Migrations
                         .HasColumnOrder(4)
                         .HasComment("Edad de Persona.");
 
-                    b.Property<int>("IdentityNumber")
-                        .HasColumnType("int")
+                    b.Property<string>("IdentityNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnOrder(2)
                         .HasComment("Número de Documento de Identidad.");
 
@@ -50,6 +51,9 @@ namespace HumanoTest.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdentityNumber")
+                        .IsUnique();
+
                     b.ToTable("Person", t =>
                         {
                             t.HasComment("Persona");
@@ -60,68 +64,68 @@ namespace HumanoTest.Infrastructure.Migrations
                         {
                             Id = 1,
                             Age = 1,
-                            IdentityNumber = 693388399,
+                            IdentityNumber = "957709015",
                             Name = "Person 1"
                         },
                         new
                         {
                             Id = 2,
                             Age = 2,
-                            IdentityNumber = 402193899,
+                            IdentityNumber = "685407361",
                             Name = "Person 2"
                         },
                         new
                         {
                             Id = 3,
                             Age = 3,
-                            IdentityNumber = 109811160,
+                            IdentityNumber = "439924747",
                             Name = "Person 3"
                         },
                         new
                         {
                             Id = 4,
                             Age = 4,
-                            IdentityNumber = 183043970,
+                            IdentityNumber = "558433187",
                             Name = "Person 4"
                         },
                         new
                         {
                             Id = 5,
                             Age = 5,
-                            IdentityNumber = 691062587,
+                            IdentityNumber = "457098325",
                             Name = "Person 5"
                         },
                         new
                         {
                             Id = 6,
                             Age = 6,
-                            IdentityNumber = 200356431,
+                            IdentityNumber = "522865059",
                             Name = "Person 6"
                         },
                         new
                         {
                             Id = 7,
                             Age = 7,
-                            IdentityNumber = 9546950,
+                            IdentityNumber = "818066775",
                             Name = "Person 7"
                         },
                         new
                         {
                             Id = 8,
                             Age = 8,
-                            IdentityNumber = 303091667,
+                            IdentityNumber = "363201467",
                             Name = "Person 8"
                         },
                         new
                         {
                             Id = 9,
                             Age = 9,
-                            IdentityNumber = 823058360,
+                            IdentityNumber = "979061742",
                             Name = "Person 9"
                         });
                 });
 
-            modelBuilder.Entity("HumanoTest.Domain.Entities.Person.PersonContact", b =>
+            modelBuilder.Entity("HumanoTest.Domain.Entities.PersonEntities.PersonContact", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -257,7 +261,7 @@ namespace HumanoTest.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("HumanoTest.Domain.Entities.Person.PersonContactType", b =>
+            modelBuilder.Entity("HumanoTest.Domain.Entities.PersonEntities.PersonContactType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -348,18 +352,18 @@ namespace HumanoTest.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("HumanoTest.Domain.Entities.Person.PersonContact", b =>
+            modelBuilder.Entity("HumanoTest.Domain.Entities.PersonEntities.PersonContact", b =>
                 {
-                    b.HasOne("HumanoTest.Domain.Entities.Person.PersonContactType", "PersonContactType")
+                    b.HasOne("HumanoTest.Domain.Entities.PersonEntities.PersonContactType", "PersonContactType")
                         .WithMany()
                         .HasForeignKey("PersonContactTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HumanoTest.Domain.Entities.Person.Person", "Person")
+                    b.HasOne("HumanoTest.Domain.Entities.PersonEntities.Person", "Person")
                         .WithMany("Contacts")
                         .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Person");
@@ -367,7 +371,7 @@ namespace HumanoTest.Infrastructure.Migrations
                     b.Navigation("PersonContactType");
                 });
 
-            modelBuilder.Entity("HumanoTest.Domain.Entities.Person.Person", b =>
+            modelBuilder.Entity("HumanoTest.Domain.Entities.PersonEntities.Person", b =>
                 {
                     b.Navigation("Contacts");
                 });

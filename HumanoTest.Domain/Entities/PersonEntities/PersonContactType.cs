@@ -1,4 +1,4 @@
-﻿namespace HumanoTest.Domain.Entities.Person;
+﻿namespace HumanoTest.Domain.Entities.PersonEntities;
 
 public partial class PersonContactType : EntityBase
 {

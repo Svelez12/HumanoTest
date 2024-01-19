@@ -1,22 +1,26 @@
-﻿namespace HumanoTest.Domain.Entities.Person;
+﻿namespace HumanoTest.Domain.Entities.PersonEntities;
 
 public partial class Person : EntityBase
 {
-    public Person(int identityNumber, string name, int age)
+    public Person(int id) : base(id)
+    {
+    }
+
+    public Person(string identityNumber, string name, int age)
     {
         IdentityNumber = identityNumber;
         Name = name;
         Age = age;
     }
 
-    public Person(int id, int identityNumber, string name, int age) : base(id)
+    public Person(int id, string identityNumber, string name, int age) : base(id)
     {
         IdentityNumber = identityNumber;
         Name = name;
         Age = age;
     }
 
-    public int IdentityNumber { get; set; }
+    public string IdentityNumber { get; set; }
 
     public string Name { get; set; }
 

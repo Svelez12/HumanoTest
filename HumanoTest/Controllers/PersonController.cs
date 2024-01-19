@@ -1,35 +1,26 @@
 ﻿namespace HumanoTest.Controllers;
 
 using HumanoTest.Application.Contracts;
-using HumanoTest.Application.Contracts.IServices.Person;
-using HumanoTest.Application.Models.Person;
+using HumanoTest.Application.Person.Commands;
+using HumanoTest.Application.Person.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("[controller]")]
 public class PersonController : ControllerBase
 {
-    private readonly IPersonService personService;
-    private readonly ILogger<PersonController> _logger;
+    private readonly ISender sender;
 
-    public PersonController(IPersonService PersonService)
+    public PersonController(ISender Sender)
     {
-        personService = PersonService;
+        sender = Sender;
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllAsync(int page = 1, int take = 10, int identificatioNumberId = 0)
+    public async Task<IActionResult> GetAllAsync([FromQuery] GetAllPersons getAllPersons)
     {
-        ResponseData responseData = new();
-
-        if (identificatioNumberId > 0)
-        {
-            responseData = await personService.GetByIdentityNumberId(page, take, identificatioNumberId);
-        }
-        else
-        {
-            responseData = await personService.GetAllAsync(page, take);
-        }
+        ResponseData responseData = await sender.Send(getAllPersons);
 
         if (!responseData.Success)
         {
@@ -40,20 +31,38 @@ public class PersonController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAsync([FromBody] PersonCreateDto personCreateDto)
+    public async Task<IActionResult> CreateAsync([FromBody] CreatePerson createPerson)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(new { errors = ModelState });
         }
 
-        ResponseData responseData = await personService.CreateAsync(personCreateDto);
+        ResponseData responseData = await sender.Send(createPerson);
 
-        if (!responseData.Success)
+        if (responseData.Success)
         {
-            return BadRequest(responseData);
+            return Ok(responseData); ;
         }
 
-        return Ok(responseData);
+        return BadRequest(responseData);
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(DeletePerson deletePerson)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(new { errors = ModelState });
+        }
+
+        ResponseData responseData = await sender.Send(deletePerson);
+
+        if (responseData.Success)
+        {
+            return Ok(responseData); ;
+        }
+
+        return BadRequest(responseData);
     }
 }

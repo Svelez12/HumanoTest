@@ -33,5 +33,5 @@ public class PersonCreateDto
     [Required]
     public int Age { get; set; }
 
-    public IEnumerable<PersonContactCreateDto> Contacts { get; set; }
+    public IEnumerable<PersonContactCreateDto>? Contacts { get; set; }
 }

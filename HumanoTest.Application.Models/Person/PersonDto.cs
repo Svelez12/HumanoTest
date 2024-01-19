@@ -13,7 +13,7 @@ public class PersonDto : BaseDto
     {
     }
 
-    public PersonDto(int id, int identityNumber, string name, int age, IEnumerable<PersonContactDto> contacts) : base(id)
+    public PersonDto(int id, string identityNumber, string name, int age, IEnumerable<PersonContactDto> contacts) : base(id)
     {
         IdentityNumber = identityNumber;
         Name = name;
@@ -21,7 +21,7 @@ public class PersonDto : BaseDto
         Contacts = contacts;
     }
 
-    public PersonDto(int identityNumber, string name, int age)
+    public PersonDto(string identityNumber, string name, int age)
     {
         IdentityNumber = identityNumber;
         Name = name;
@@ -29,7 +29,7 @@ public class PersonDto : BaseDto
     }
 
     [Required]
-    public int IdentityNumber { get; set; }
+    public string IdentityNumber { get; set; }
 
     [Required]
     [MaxLength(100)]

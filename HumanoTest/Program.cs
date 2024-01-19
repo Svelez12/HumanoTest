@@ -1,9 +1,10 @@
 using HealthChecks.UI.Client;
 using HumanoTest.Api.ConfigurationServices;
-using HumanoTest.CrossCutting.Register;
+using HumanoTest.Application;
 using HumanoTest.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,12 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDatabaseServices(builder.Configuration);
-IoCServicesRegister.AddRegistration(builder.Services);
-IoCRepositoriesRegister.AddRegistration(builder.Services);
+IoCApplicationRegister.AddRegistration(builder.Services);
+IoCInfrastructureRegister.AddRegistration(builder.Services);
 
 builder.Services.AddHealthChecks()
-    .AddCheck("API", () => HealthCheckResult.Healthy())
-    .AddDbContextCheck<HumanoTestDbContext>();
+    .AddCheck("HumanoTest API", () => HealthCheckResult.Healthy("HumanoTest check is healthy.")).AddDbContextCheck<HumanoTestDbContext>("HumanoTest Database");
 
 builder.Services.AddHealthChecksUI().AddInMemoryStorage();
 
