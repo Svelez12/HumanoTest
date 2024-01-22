@@ -110,7 +110,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IEnti
         }
         catch (Exception ex)
         {
-            return new ResponseData(false, $"Error al actualizar registro: {ex.Message}");
+            return new ResponseData(false, $"Error Interno.");
         }
     }
 
@@ -145,12 +145,70 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IEnti
         }
         catch (Exception ex)
         {
-            return new ResponseData(false, $"Error al eliminar registros: {ex.Message}");
+            return new ResponseData(false, $"Error Interno.");
         }
     }
 
     public async Task<bool> ExistAsync(int id)
     {
         return await _context.Set<T>().AnyAsync(e => e.Id == id);
+    }
+
+    public async Task<ResponseData> GetByIdDataAsync<TResult>(int id, Expression<Func<T, TResult>> select, Expression<Func<T, bool>> whereCondition, params Expression<Func<T, object>>[] includes)
+    {
+        IQueryable<T> query = _context.Set<T>();
+
+        try
+        {
+            if (includes != null)
+            {
+                foreach (Expression<Func<T, object>> item in includes)
+                {
+                    query = query.Include(item).AsNoTracking();
+                }
+            }
+
+            if (whereCondition != null)
+            {
+                query = query.Where(whereCondition);
+            }
+
+            query = query.Where(c => c.Id == id);
+
+            return new ResponseData(true, await query.Select(select).FirstOrDefaultAsync());
+        }
+        catch (Exception ex)
+        {
+            return new ResponseData(false, $"Error Interno.");
+        }
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <typeparam name="TResult"> </typeparam>
+    /// <param name="id"> </param>
+    /// <param name="select"> </param>
+    /// <param name="whereCondition"> </param>
+    /// <param name="includes"> </param>
+    /// <returns> </returns>
+    public async Task<TResult> GetByIdAsync<TResult>(int id, Expression<Func<T, TResult>> select, Expression<Func<T, bool>> whereCondition, params Expression<Func<T, object>>[] includes)
+    {
+        IQueryable<T> query = _context.Set<T>();
+        if (includes != null)
+        {
+            foreach (Expression<Func<T, object>> item in includes)
+            {
+                query = query.Include(item).AsNoTracking();
+            }
+        }
+
+        if (whereCondition != null)
+        {
+            query = query.Where(whereCondition);
+        }
+
+        query = query.Where(c => c.Id == id);
+
+        return await query.Select(select).FirstOrDefaultAsync();
     }
 }

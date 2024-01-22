@@ -6,6 +6,7 @@ using HumanoTest.Domain.Contracts.UnitsOfWorks;
 using HumanoTest.Infrastructure.Contracts.DbContext;
 using HumanoTest.Infrastructure.Repositories.Person;
 using Microsoft.EntityFrameworkCore.Storage;
+using System.Resources;
 
 public class PersonUnitOfWork : IPersonUnitOfWork
 {
@@ -56,6 +57,22 @@ public class PersonUnitOfWork : IPersonUnitOfWork
         }
         catch (Exception ex)
         {
+            string SystemException = string.Empty;
+
+            if (ex.InnerException != null)
+            {
+                SystemException = ex.InnerException.Message;
+            }
+            else if (!string.IsNullOrEmpty(ex.Message))
+            {
+                SystemException = ex.Message;
+            }
+
+            if (SystemException.Contains("unique index"))
+            {
+                return new ResponseData(false, $"Registro ya existe, por favor verificar.");
+            }
+
             return new ResponseData(false, $"Error Interno.");
         }
     }

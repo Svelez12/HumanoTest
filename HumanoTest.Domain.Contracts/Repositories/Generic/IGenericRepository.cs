@@ -64,4 +64,25 @@ public interface IGenericRepository<T> where T : class
     /// <param name="id">Id Of Entity</param>
     /// <returns><see cref="bool"/>True or False</returns>
     Task<bool> ExistAsync(int id);
+
+    /// <summary>
+    /// Obtain entity information by ID.
+    /// </summary>
+    /// <typeparam name="TResult"> <see cref="T"/> </typeparam>
+    /// <param name="id"> Identity of Entity to Search </param>
+    /// <param name="select"> Select statement </param>
+    /// <param name="whereCondition"> Where statement </param>
+    /// <param name="includes"> Include statement </param>
+    /// <returns> <see cref="ResponseData"/> </returns>
+    Task<ResponseData> GetByIdDataAsync<TResult>(int id, Expression<Func<T, TResult>> select, Expression<Func<T, bool>> whereCondition, params Expression<Func<T, object>>[] includes);
+
+    /// <summary>
+    /// </summary>
+    /// <typeparam name="TResult"> </typeparam>
+    /// <param name="id"> </param>
+    /// <param name="select"> </param>
+    /// <param name="whereCondition"> </param>
+    /// <param name="includes"> </param>
+    /// <returns> </returns>
+    Task<TResult> GetByIdAsync<TResult>(int id, Expression<Func<T, TResult>> select, Expression<Func<T, bool>> whereCondition, params Expression<Func<T, object>>[] includes);
 }

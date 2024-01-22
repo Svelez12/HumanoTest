@@ -49,7 +49,7 @@ public class PersonController : ControllerBase
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Delete(DeletePerson deletePerson)
+    public async Task<IActionResult> DeleteAsync(DeletePerson deletePerson)
     {
         if (!ModelState.IsValid)
         {
@@ -57,6 +57,24 @@ public class PersonController : ControllerBase
         }
 
         ResponseData responseData = await sender.Send(deletePerson);
+
+        if (responseData.Success)
+        {
+            return Ok(responseData); ;
+        }
+
+        return BadRequest(responseData);
+    }
+
+    [HttpPatch]
+    public async Task<IActionResult> UpdateAsync([FromBody] UpdatePerson updatePerson)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(new { errors = ModelState });
+        }
+
+        ResponseData responseData = await sender.Send(updatePerson);
 
         if (responseData.Success)
         {

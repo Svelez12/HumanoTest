@@ -8,6 +8,7 @@ using HumanoTest.Application.Contracts;
 public class CreatePerson : IRequest<ResponseData>
 {
     [Required]
+    [MaxLength(12)]
     public string IdentityNumber { get; set; }
 
     [Required]

@@ -20,11 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\HumanoTest.CrossCutting\HumanoTest.CrossCutting.csproj" />
+    <ProjectReference Include="..\HumanoTest.Application\HumanoTest.Application.csproj" />
+    <ProjectReference Include="..\HumanoTest.Infrastructure\HumanoTest.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

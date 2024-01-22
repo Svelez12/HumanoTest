@@ -1,5 +1,6 @@
 ﻿using HumanoTest.Api.Tests.ConfigurationServices;
-using HumanoTest.CrossCutting.Register;
+using HumanoTest.Application;
+using HumanoTest.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,8 +21,8 @@ public class Startup
         // Database.
         services.AddDatabaseServices(Configuration);
 
-        IoCServicesRegister.AddRegistration(services);
-        IoCRepositoriesRegister.AddRegistration(services);
+        IoCApplicationRegister.AddRegistration(services);
+        IoCInfrastructureRegister.AddRegistration(services);
 
         services.AddEndpointsApiExplorer();
 
